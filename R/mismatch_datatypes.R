@@ -1,12 +1,18 @@
 mismatch_datatypes = function (source, target){
   #finds common columns and checks if datatypes match
-  #returns a named character vector
+  #returns a dataframe vector
+  src_name = deparse(substitute(source,env=parent.frame()))
+  tgt_name = deparse(substitute(target,env=parent.frame()))
 
-  dt_src = sapply(source,  class)
-  dt_tgt = sapply(target, class)
-  src_and_tgt = dt_src %in% dt_tgt
-  char_vect = dt_src[!src_and_tgt]
+  common = common_colnames(source,target)
 
-  return(char_vect)
+  dt_src = sapply(source[common], class)
+  dt_tgt = sapply(target[common], class)
+
+
+  df = as.data.frame(cbind(dt_tgt, dt_src, dt_src != dt_tgt))
+  names(df) = c(src_name, tgt_name, "mismatch")
+
+  return(df)
 
 }
