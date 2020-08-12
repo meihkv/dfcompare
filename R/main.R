@@ -13,7 +13,6 @@
 # print(mismatch_datatypes(source, target))
 
 df_compare = function (source, target, keys) {
-  require(data.table)
 
   stopifnot(
     is.data.frame(source),
@@ -26,12 +25,28 @@ df_compare = function (source, target, keys) {
     key_exists(target, keys)
   )
 
+  print("Mismatching column names")
   print(mismatch_colnames(source, target))
+  print("Mismatching datatypes:")
   print(mismatch_datatypes(source, target))
 
-  setDT(source)
-  setDT(target)
+  common = common_colnames(source,target)
 
-  merge()
+  source = as.data.table(source)[,..common]
+  target = as.data.table(target)[,..common]
+
+  #Remove duplicate keys from source and target
+  src_no_dupes = source[!duplicated(rleidv(source, cols = keys)), ]
+  src_dupes = source[duplicated(rleidv(source, cols = keys)), ]
+  tgt_no_dupes = target[!duplicated(rleidv(target, cols = keys)), ]
+  tgt_dupes = target[duplicated(rleidv(target, cols = keys)), ]
+
+  #prepare keys
+  names(keys) = keys
+
+  #merge data tables on keys
+  src_and_tgt = src_no_dupes[tgt_no_dupes, on = keys, nomatch = 0]
+
+  return(src_and_tgt)
 
 }
