@@ -54,6 +54,7 @@ df_compare = function (source, target, keys) {
   common_nokey = sort(common[!(common %in% keys)])
 
   list = lapply(common_nokey, datatable = src_and_tgt, check_equality)
+  names(list) = common_nokey
   return(list)
 
 }
