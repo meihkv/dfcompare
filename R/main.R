@@ -36,10 +36,14 @@ df_compare = function (source, target, keys) {
   target = as.data.table(target)[,..common]
 
   #Remove duplicate keys from source and target
-  src_no_dupes = source[!duplicated(rleidv(source, cols = keys)), ]
-  src_dupes = source[duplicated(rleidv(source, cols = keys)), ]
-  tgt_no_dupes = target[!duplicated(rleidv(target, cols = keys)), ]
-  tgt_dupes = target[duplicated(rleidv(target, cols = keys)), ]
+  src_no_dupes = source[!(duplicated(rleidv(source, cols = keys)) |
+                            duplicated(rleidv(source, cols = keys), fromLast = TRUE)),]
+  src_dupes = source[(duplicated(rleidv(source, cols = keys)) |
+                         duplicated(rleidv(source, cols = keys), fromLast = TRUE)),]
+  tgt_no_dupes = target[!(duplicated(rleidv(target, cols = keys)) |
+                            duplicated(rleidv(target, cols = keys), fromLast = TRUE)),]
+  tgt_dupes = target[(duplicated(rleidv(target, cols = keys)) |
+                         duplicated(rleidv(target, cols = keys), fromLast = TRUE)),]
 
   #prepare keys
   names(keys) = keys
@@ -47,6 +51,9 @@ df_compare = function (source, target, keys) {
   #merge data tables on keys
   src_and_tgt = src_no_dupes[tgt_no_dupes, on = keys, nomatch = 0]
 
-  return(src_and_tgt)
+  common_nokey = sort(common[!(common %in% keys)])
+
+  list = lapply(common_nokey, datatable = src_and_tgt, check_equality)
+  return(list)
 
 }
