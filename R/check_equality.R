@@ -1,6 +1,9 @@
-check_equality = function (column, datatable) {
-  column = c(column, paste("i.",column,sep=""))
-  column1 = column[1]
-  column2 = column[2]
-  cbind(datatable[,..column], mismatch = datatable[,..column1] != datatable[,..column2])
+check_equality = function (column_name, datatable) {
+  column_name = c(column_name, paste("i.",column_name,sep=""))
+  column1 = column_name[1]
+  column2 = column_name[2]
+  dt = cbind(datatable[,..column_name],
+             mismatch = (datatable[,..column1] != datatable[,..column2])
+  )
+  return(dt[dt[[3]],])
 }
