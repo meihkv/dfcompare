@@ -8,7 +8,7 @@
 #' @param source data frame of the source
 #' @param target data frame of the target
 #' @param keys a string containing a key. Pass a character vector for multiple keys. The keys will be used in a data.table join using on =.
-#' @return a list of data.tables for each column and the correesponding mismatches
+#' @return a list of data.tables for each column and the corresponding mismatches
 #' @export
 df_compare = function (source, target, keys) {
 
