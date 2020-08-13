@@ -1,3 +1,13 @@
+#' Checks if two vectors of the same name of equal length have equal values
+#'
+#' This is a private function for dfcompare.
+#' It requires a data table containing the name of the column and the
+#' prefix "i." + name of the column to be compared with each other.
+#'
+#' @param column_name name of column to be tested
+#' @param datatable name of data table containing the columns to be tested
+#' @return data table with only the tested columns and a mismatch column
+
 check_equality = function (column_name, datatable) {
   column_name = c(column_name, paste("i.",column_name,sep=""))
   column1 = column_name[1]
