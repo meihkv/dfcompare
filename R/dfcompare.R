@@ -56,5 +56,17 @@ dfcompare = function (source, target, keys) {
   list = lapply(common_nokey, datatable = src_and_tgt, check_equality)
   names(list) = common_nokey
 
+  print("Mismatches:")
+  #Get mismatch counts for each data frame contained in list
+  printout = lapply(list,nrow)
+  #Convert into name and mismatch vectors
+  printout= cbind(column = unlist(names(printout)),
+                  mismatches = unlist(printout))
+  #Remove named rows for cleanliness
+  #Convert into data frame
+  printout = as.data.frame(unname(printout))
+  names(printout) = c('Column','Mismatches')
+  print(printout)
+
   return(list)
 }
