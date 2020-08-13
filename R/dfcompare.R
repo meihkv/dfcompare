@@ -53,7 +53,7 @@ dfcompare = function (source, target, keys) {
   common_nokey = sort(common[!(common %in% keys)])
 
   #Checks each column pairs between source and target for equality
-  list = lapply(common_nokey, datatable = src_and_tgt, check_equality)
+  list = lapply(common_nokey, datatable = src_and_tgt, keys = keys, check_equality)
   names(list) = common_nokey
 
   print("Mismatches:")
