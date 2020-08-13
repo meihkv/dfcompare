@@ -10,7 +10,7 @@
 #' @param keys a string containing a key. Pass a character vector for multiple keys. The keys will be used in a data.table join using on =.
 #' @return a list of data.tables for each column and the corresponding mismatches
 #' @export
-df_compare = function (source, target, keys) {
+dfcompare = function (source, target, keys) {
 
   stopifnot(
     is.data.frame(source),
@@ -49,10 +49,12 @@ df_compare = function (source, target, keys) {
   #merge data tables on keys
   src_and_tgt = src_no_dupes[tgt_no_dupes, on = keys, nomatch = 0]
 
+  #Extracts column names without keys
   common_nokey = sort(common[!(common %in% keys)])
 
+  #Checks each column pairs between source and target for equality
   list = lapply(common_nokey, datatable = src_and_tgt, check_equality)
   names(list) = common_nokey
-  return(list)
 
+  return(list)
 }
