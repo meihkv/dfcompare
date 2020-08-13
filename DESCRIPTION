@@ -8,5 +8,5 @@ Description: Compares two data frames using data.table methods.
 License: Common
 Encoding: UTF-8
 LazyData: true
-Imports: data.table (>= 1.9.4)
+Depends: data.table (>= 1.9.4)
 RoxygenNote: 7.1.0
