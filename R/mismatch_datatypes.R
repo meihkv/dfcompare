@@ -6,8 +6,8 @@ mismatch_datatypes = function (source, target){
 
   common = common_colnames(source,target)
 
-  dt_src = sapply(source[common], class)
-  dt_tgt = sapply(target[common], class)
+  dt_src = sapply(source[common], typeof)
+  dt_tgt = sapply(target[common], typeof)
 
 
   df = as.data.frame(cbind(dt_tgt, dt_src, dt_src != dt_tgt))
