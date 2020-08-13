@@ -30,8 +30,8 @@ df_compare = function (source, target, keys) {
 
   common = common_colnames(source,target)
 
-  source = as.data.table(source)[,..common]
-  target = as.data.table(target)[,..common]
+  source = data.table::as.data.table(source)[,..common]
+  target = data.table::as.data.table(target)[,..common]
 
   #Remove duplicate keys from source and target
   src_no_dupes = source[!(duplicated(data.table::rleidv(source, cols = keys)) |
