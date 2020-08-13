@@ -19,8 +19,8 @@ dfcompare = function (source, target, keys) {
     nrow(target) > 1,
     is.vector(keys),
     is.character(keys),
-    key_exists(source, keys),
-    key_exists(target, keys)
+    col_exists(source, keys),
+    col_exists(target, keys)
   )
 
   print("Mismatching column names")
