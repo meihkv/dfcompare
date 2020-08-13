@@ -34,14 +34,14 @@ df_compare = function (source, target, keys) {
   target = as.data.table(target)[,..common]
 
   #Remove duplicate keys from source and target
-  src_no_dupes = source[!(duplicated(rleidv(source, cols = keys)) |
-                            duplicated(rleidv(source, cols = keys), fromLast = TRUE)),]
-  src_dupes = source[(duplicated(rleidv(source, cols = keys)) |
-                         duplicated(rleidv(source, cols = keys), fromLast = TRUE)),]
-  tgt_no_dupes = target[!(duplicated(rleidv(target, cols = keys)) |
-                            duplicated(rleidv(target, cols = keys), fromLast = TRUE)),]
-  tgt_dupes = target[(duplicated(rleidv(target, cols = keys)) |
-                         duplicated(rleidv(target, cols = keys), fromLast = TRUE)),]
+  src_no_dupes = source[!(duplicated(data.table::rleidv(source, cols = keys)) |
+                            duplicated(data.table::rleidv(source, cols = keys), fromLast = TRUE)),]
+  src_dupes = source[(duplicated(data.table::rleidv(source, cols = keys)) |
+                         duplicated(data.table::rleidv(source, cols = keys), fromLast = TRUE)),]
+  tgt_no_dupes = target[!(duplicated(data.table::rleidv(target, cols = keys)) |
+                            duplicated(data.table::rleidv(target, cols = keys), fromLast = TRUE)),]
+  tgt_dupes = target[(duplicated(data.table::rleidv(target, cols = keys)) |
+                         duplicated(data.table::rleidv(target, cols = keys), fromLast = TRUE)),]
 
   #prepare keys
   names(keys) = keys
