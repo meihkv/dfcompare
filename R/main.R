@@ -1,17 +1,15 @@
-
-#Test cases
-#No matching columns
-#No rows
-#No matching keys
-
-# print(sprintf("Columns in %s not in %s:",src_name, tgt_name))
-# print(mismatch_colnames(source, target)[1])
-# print(sprintf("Columns in %s not in %s:",tgt_name, src_name))
-# print(mismatch_colnames(source, target)[2])
-#
-# print("Mismatching datatypes:")
-# print(mismatch_datatypes(source, target))
-
+#' Compare two data frames
+#'
+#' This function compares two data frames.  It checks if the source and target
+#' variables are data frames, and if there are rows in both,
+#' and if the keys are a character vector, and that they keys
+#' exist in both source and target data frames.
+#'
+#' @param source data frame of the source
+#' @param target data frame of the target
+#' @param keys a string containing a key. Pass a character vector for multiple keys. The keys will be used in a data.table join using on =.
+#' @return a list of data.tables for each column and the correesponding mismatches
+#' @export
 df_compare = function (source, target, keys) {
 
   stopifnot(
