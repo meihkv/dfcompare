@@ -2,8 +2,7 @@ Package: dfcompare
 Type: Package
 Title: Data Frame Compare
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Michael Vuong
+Author: Michael Vuong
 Description: Compares two data frames using data.table methods.
     Checks for mismatching values, columns, and datatypes.
 License: Common
