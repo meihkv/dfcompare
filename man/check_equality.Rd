@@ -4,12 +4,14 @@
 \alias{check_equality}
 \title{Checks if two vectors of the same name of equal length have equal values}
 \usage{
-check_equality(column_name, datatable)
+check_equality(column_name, datatable, keys)
 }
 \arguments{
 \item{column_name}{name of column to be tested}
 
 \item{datatable}{name of data table containing the columns to be tested}
+
+\item{keys}{vector name of columns to be included as reference}
 }
 \value{
 data table with only the tested columns and a mismatch column
