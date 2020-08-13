@@ -13,6 +13,6 @@ mismatch_datatypes = function (source, target){
   df = as.data.frame(cbind(dt_tgt, dt_src, dt_src != dt_tgt))
   names(df) = c(src_name, tgt_name, "mismatch")
 
-  return(df[which(df$mismatch==TRUE)])
+  return(df[which(df$mismatch==TRUE),])
 
 }
