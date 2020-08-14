@@ -1,6 +1,6 @@
 mismatch_datatypes = function (source, target){
   #finds common columns and checks if datatypes match
-  #returns a dataframe vector
+  #returns a data frame vector
   src_name = deparse(substitute(source,env=parent.frame()))
   tgt_name = deparse(substitute(target,env=parent.frame()))
 
