@@ -10,13 +10,19 @@
 #' @return data table with only the tested columns and a mismatch column
 
 check_equality = function (column_name, datatable, keys) {
-  column_name = c(column_name, paste("i.",column_name,sep=""))
-  column1 = column_name[1]
-  column2 = column_name[2]
-  dt = cbind(datatable[,..keys],datatable[,..column_name],
-             mismatch = (datatable[,..column1] != datatable[,..column2])
+
+  src_col_name = column_name
+  tgt_col_name = paste("i.",column_name,sep="")
+
+  sorted_column_names = c(keys, src_col_name, tgt_col_name)
+
+  tested_columns = cbind(datatable[,..sorted_column_names],
+             mismatch = (datatable[,..src_col_name] != datatable[,..tgt_col_name])
   )
-  #find mismathing column index
-  mismatch_column_position = length(keys) + length(column_name) + 1
-  return(dt[dt[[mismatch_column_position]],])
+
+  #find mismatching column index
+  mismatch_column_position = length(tested_columns)
+
+  #Return only mismatches
+  return(tested_columns[tested_columns[[mismatch_column_position]],])
 }
