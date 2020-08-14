@@ -16,13 +16,8 @@ check_equality = function (column_name, datatable, keys) {
 
   sorted_column_names = c(keys, src_col_name, tgt_col_name)
 
-  tested_columns = cbind(datatable[,..sorted_column_names],
-             mismatch = (datatable[,..src_col_name] != datatable[,..tgt_col_name])
-  )
-
-  #find mismatching column index
-  mismatch_column_position = length(tested_columns)
+  tested_columns = cbind(datatable[,..sorted_column_names])
 
   #Return only mismatches
-  return(tested_columns[tested_columns[[mismatch_column_position]],])
+  return(tested_columns[tested_columns[[2]]!=tested_columns[[3]],])
 }
