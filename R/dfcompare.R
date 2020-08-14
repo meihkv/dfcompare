@@ -86,9 +86,19 @@ dfcompare = function (source, target, keys) {
 
   cat("--DF Compare--\n")
   cat("\n")
+
   cat("Data Frame Summary\n")
+  cat("---------------------------\n")
+  cat("Key(s) used:",keys,"\n")
+  cat("Observations in",src_name,": ",nrow(source),"\n")
+  cat("Observations in",tgt_name,": ",nrow(target),"\n")
+  cat("Duplicate keys removed from",src_name,":",nrow(src_dupes),"\n")
+  cat("Duplicate keys removed from",tgt_name,":",nrow(tgt_dupes),"\n")
+  cat("Observations compared:",nrow(src_and_tgt),"\n")
+  cat("Columns compared:",length(names(src_and_tgt)),"\n")
+  cat("Columns with unequal values:",nrow(printout),"\n")
   cat("\n")
-  cat("Mismatching column names:\n")
+  cat("Uncommon column names:\n")
   cat("---------------------------\n")
   if(nrow(mismatch_colnames[[1]])>0 | nrow(mismatch_colnames[[2]])>0) {
 
@@ -112,7 +122,8 @@ dfcompare = function (source, target, keys) {
     cat("None\n")
   }
   cat("\n")
-  cat("Mismatches:\n")
+  cat("\n")
+  cat("Mismatching values:\n")
   cat("---------------------------\n")
 
   print(printout)
