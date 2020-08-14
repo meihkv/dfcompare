@@ -32,6 +32,10 @@ dfcompare = function (source, target, keys) {
   #Extracts column names without keys
   common_nokey = sort(common[!(common %in% keys)])
 
+  mismatch_colnames= mismatch_colnames(source, target)
+  mismatch_datatypes= mismatch_datatypes(source, target)
+
+
   #Convert data frames to data tables
   source = data.table::as.data.table(source)[,..common]
   target = data.table::as.data.table(target)[,..common]
@@ -53,18 +57,15 @@ dfcompare = function (source, target, keys) {
   list = lapply(common_nokey, datatable = src_and_tgt, keys = keys, check_equality)
   names(list) = common_nokey
 
-  cat("--DF Compare--\n\n")
-
-
-  cat("Data Frame Summary")
-
-
-  cat(sprintf("hi"))
+  cat("--DF Compare--\n")
+  cat("\n")
+  cat("Data Frame Summary\n")
+  cat("\n")
   cat("Mismatching column names\n")
-  print(mismatch_colnames(source, target))
+  print(mismatch_colnames)
   cat("Mismatching datatypes:\n")
-  print(mismatch_datatypes(source, target))
-
+  print(mismatch_datatypes)
+  cat("\n")
   cat("Mismatches:\n")
   #Get mismatch counts for each data frame contained in list
   printout = lapply(list,nrow)
