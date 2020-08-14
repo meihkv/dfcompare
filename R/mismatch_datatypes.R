@@ -9,10 +9,10 @@ mismatch_datatypes = function (source, target){
   dt_src = sapply(source[common], typeof)
   dt_tgt = sapply(target[common], typeof)
 
+  #Create a data frame of dt_src and dt_tgt where they do not equal
+  df = as.data.frame(cbind(dt_tgt, dt_src))[which(dt_src != dt_tgt),]
+  names(df) = c(src_name, tgt_name)
 
-  df = as.data.frame(cbind(dt_tgt, dt_src, dt_src != dt_tgt))
-  names(df) = c(src_name, tgt_name, "mismatch")
-
-  return(df[which(df$mismatch==TRUE),])
+  return(df)
 
 }
