@@ -69,7 +69,7 @@ dfcompare = function (source, target, keys) {
   src_and_tgt = src_no_dupes[tgt_no_dupes, on = keys, nomatch = 0]
 
   #Checks each column pairs between source and target for equal values
-  list = lapply(common_nokey, datatable = src_and_tgt, keys = keys, check_equality)
+  list = lapply(common_nokey, datatable = src_and_tgt, keys = keys, dt_names = c(src_name, tgt_name), check_equality)
   names(list) = common_nokey
 
   #Get mismatch counts for each data frame contained in list
