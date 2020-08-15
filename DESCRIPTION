@@ -9,6 +9,6 @@ License: Common
 Encoding: UTF-8
 LazyData: true
 Depends: data.table (>= 1.9.4)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests: 
     testthat
