@@ -1,3 +1,11 @@
+#' Searches for uncommon column names between two data frames
+#'
+#' This is a private function for dfcompare.
+#'
+#' @param source data frame of source
+#' @param target data frame of target
+#' @return a list of data frames containing uncommon column names
+#'
 mismatch_colnames = function (source, target) {
   #finds columns that are not in common with each other
   #returns a list of data frame vectors

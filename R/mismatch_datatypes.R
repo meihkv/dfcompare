@@ -1,3 +1,11 @@
+#' Searches for mismatching datatypes between two data frames
+#'
+#' This is a private function for dfcompare.
+#'
+#' @param source data frame of source
+#' @param target data frame of target
+#' @return a data frame of column names with mismatching data types
+#'
 mismatch_datatypes = function (source, target){
   #finds common columns and checks if datatypes match
   #returns a data frame vector
