@@ -10,7 +10,7 @@
 #' @param keys a string containing a key. Pass a character vector for multiple keys. The keys will be used in a data.table join using on =.
 #' @return a list of data.tables for each column and the corresponding mismatches
 #' @export
-dfcompare = function (source, target, keys) {
+dfcompare = function (source, target, keys, summary = TRUE) {
 
   stopifnot(
     is.data.frame(source),
@@ -89,51 +89,53 @@ dfcompare = function (source, target, keys) {
   names(printout) = c('Column','Mismatches')
 
   #Summary printout
+  if(summary){
+    cat("--DF Compare--\n")
+    cat("\n")
 
-  cat("--DF Compare--\n")
-  cat("\n")
+    cat("Data Frame Summary\n")
+    cat("---------------------------\n")
+    cat("Key(s) used:",keys,"\n")
+    cat("Observations in",src_name,": ",nrow(source),"\n")
+    cat("Observations in",tgt_name,": ",nrow(target),"\n")
+    cat("Duplicate keys removed from",src_name,":",nrow(src_dupes),"\n")
+    cat("Duplicate keys removed from",tgt_name,":",nrow(tgt_dupes),"\n")
+    cat("Observations compared:",nrow(src_and_tgt),"\n")
+    cat("Columns compared:",length(names(src_and_tgt)),"\n")
+    cat("Columns with unequal values:",nrow(printout[,printout[Mismatches>0]]),"\n")
+    cat("\n")
+    cat("Uncommon column names:\n")
+    cat("---------------------------\n")
+    if(nrow(mismatch_colnames[[1]])>0 | nrow(mismatch_colnames[[2]])>0) {
 
-  cat("Data Frame Summary\n")
-  cat("---------------------------\n")
-  cat("Key(s) used:",keys,"\n")
-  cat("Observations in",src_name,": ",nrow(source),"\n")
-  cat("Observations in",tgt_name,": ",nrow(target),"\n")
-  cat("Duplicate keys removed from",src_name,":",nrow(src_dupes),"\n")
-  cat("Duplicate keys removed from",tgt_name,":",nrow(tgt_dupes),"\n")
-  cat("Observations compared:",nrow(src_and_tgt),"\n")
-  cat("Columns compared:",length(names(src_and_tgt)),"\n")
-  cat("Columns with unequal values:",nrow(printout[,printout[Mismatches>0]]),"\n")
-  cat("\n")
-  cat("Uncommon column names:\n")
-  cat("---------------------------\n")
-  if(nrow(mismatch_colnames[[1]])>0 | nrow(mismatch_colnames[[2]])>0) {
-
-    if(nrow(mismatch_colnames[[1]])>0) {
-      print(mismatch_colnames[[1]], row.names = FALSE)
+      if(nrow(mismatch_colnames[[1]])>0) {
+        print(mismatch_colnames[[1]], row.names = FALSE)
+      }
+      if(nrow(mismatch_colnames[[2]])>0) {
+        print(mismatch_colnames[[2]], row.names = FALSE)
+      }
     }
-    if(nrow(mismatch_colnames[[2]])>0) {
-      print(mismatch_colnames[[2]], row.names = FALSE)
+    else{
+      cat("None\n")
     }
-  }
-  else{
-    cat("None\n")
-  }
-  cat("\n")
-  cat("Mismatching datatypes:\n")
-  cat("---------------------------\n")
-  if (nrow(mismatch_datatypes)>0) {
-    print(mismatch_datatypes)
-  }
-  else{
-    cat("None\n")
-  }
-  cat("\n")
-  cat("\n")
-  cat("Mismatching values:\n")
-  cat("---------------------------\n")
+    cat("\n")
+    cat("Mismatching datatypes:\n")
+    cat("---------------------------\n")
+    if (nrow(mismatch_datatypes)>0) {
+      print(mismatch_datatypes)
+    }
+    else{
+      cat("None\n")
+    }
+    cat("\n")
+    cat("\n")
+    cat("Mismatching values:\n")
+    cat("---------------------------\n")
 
-  print(printout)
-  cat("\n")
-  cat("\n")
+    print(printout)
+    cat("\n")
+    cat("\n")
+  }
+
   return(list)
 }
