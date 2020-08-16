@@ -23,16 +23,21 @@ dfcompare = function (source, target, keys) {
     col_exists(target, keys)
   )
 
+  #prepare keys
+  names(keys) = keys
+
   #Get actual names of source and target
   src_name = deparse(substitute(source))
   tgt_name = deparse(substitute(target))
 
-  #prepare keys
-  names(keys) = keys
+  #Convert to data table
+  if (!is.data.table(source)) {
+    setDT(source)
+  }
 
-  #Convert data frames to data tables for performance
-  source = data.table::as.data.table(source)[,..common]
-  target = data.table::as.data.table(target)[,..common]
+  if(!is.data.table(target)) {
+    setDT(target)
+  }
 
   #Get a vector of common column names
   common = common_colnames(source,target)
@@ -45,14 +50,18 @@ dfcompare = function (source, target, keys) {
   }
 
   #Get a list of mismatching column names and convert to a data frame
-  mismatch_colnames= mismatch_colnames(source, target)
+  mismatch_colnames= mismatch_colnames(source, target, src_name, tgt_name)
+
+  #Get a data frame of mismatching data types
+  mismatch_datatypes= mismatch_datatypes(source, target, src_name, tgt_name)
+
+  #Convert data frames to data tables for performance
+  source = data.table::as.data.table(source)[,..common]
+  target = data.table::as.data.table(target)[,..common]
 
   #Label columns using actual source and target names
   # names(mismatch_colnames) = c(paste(src_name, "not in", tgt_name, sep=" "),
   #                              paste(tgt_name, "not in", src_name, sep=" "))
-
-  #Get a data frame of mismatching data types
-  mismatch_datatypes= mismatch_datatypes(source, target)
 
   #Remove duplicate keys from source and target
   src_no_dupes = source[!(duplicated(data.table::rleidv(source, cols = keys)) |
