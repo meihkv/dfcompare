@@ -4,15 +4,15 @@
 \alias{mismatch_datatypes}
 \title{Searches for mismatching datatypes between two data frames}
 \usage{
-mismatch_datatypes(source, target)
+mismatch_datatypes(source, target, src_name = "source", tgt_name = "target")
 }
 \arguments{
-\item{source}{data frame of source}
+\item{source}{data table of source}
 
-\item{target}{data frame of target}
+\item{target}{data table of target}
 }
 \value{
-a data frame of column names with mismatching data types
+a data table of column names with mismatching data types
 }
 \description{
 This is a private function for dfcompare.

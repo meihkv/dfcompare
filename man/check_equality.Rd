@@ -4,7 +4,7 @@
 \alias{check_equality}
 \title{Checks if two vectors of the same name of equal length have equal values}
 \usage{
-check_equality(column_name, datatable, keys)
+check_equality(column_name, datatable, keys, dt_names)
 }
 \arguments{
 \item{column_name}{name of column to be tested}

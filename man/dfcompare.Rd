@@ -4,7 +4,7 @@
 \alias{dfcompare}
 \title{Compare two data frames}
 \usage{
-dfcompare(source, target, keys)
+dfcompare(source, target, keys, summary = TRUE)
 }
 \arguments{
 \item{source}{data frame of the source}

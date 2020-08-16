@@ -4,15 +4,15 @@
 \alias{mismatch_colnames}
 \title{Searches for uncommon column names between two data frames}
 \usage{
-mismatch_colnames(source, target)
+mismatch_colnames(source, target, src_name = "source", tgt_name = "target")
 }
 \arguments{
-\item{source}{data frame of source}
+\item{source}{data table of source}
 
-\item{target}{data frame of target}
+\item{target}{data table of target}
 }
 \value{
-a list of data frames containing uncommon column names
+a list of data tables containing uncommon column names
 }
 \description{
 This is a private function for dfcompare.
