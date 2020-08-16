@@ -30,6 +30,10 @@ dfcompare = function (source, target, keys) {
   #prepare keys
   names(keys) = keys
 
+  #Convert data frames to data tables for performance
+  source = data.table::as.data.table(source)[,..common]
+  target = data.table::as.data.table(target)[,..common]
+
   #Get a vector of common column names
   common = common_colnames(source,target)
 
@@ -50,11 +54,6 @@ dfcompare = function (source, target, keys) {
   #Get a data frame of mismatching data types
   mismatch_datatypes= mismatch_datatypes(source, target)
 
-
-  #Convert data frames to data tables for performance
-  source = data.table::as.data.table(source)[,..common]
-  target = data.table::as.data.table(target)[,..common]
-
   #Remove duplicate keys from source and target
   src_no_dupes = source[!(duplicated(data.table::rleidv(source, cols = keys)) |
                             duplicated(data.table::rleidv(source, cols = keys), fromLast = TRUE)),]
@@ -74,12 +73,10 @@ dfcompare = function (source, target, keys) {
 
   #Get mismatch counts for each data frame contained in list
   printout = lapply(list,nrow)
-  #Convert into name and mismatch vectors
-  printout= cbind(column = unlist(names(printout)),
+  #Create a data table of mismatch counts
+  printout= data.table::data.table(column = unlist(names(printout)),
                   mismatches = unlist(printout))
   #Remove named rows for cleanliness
-  #Convert into data frame
-  printout = as.data.frame(unname(printout))
   names(printout) = c('Column','Mismatches')
 
   #Summary printout
@@ -96,7 +93,7 @@ dfcompare = function (source, target, keys) {
   cat("Duplicate keys removed from",tgt_name,":",nrow(tgt_dupes),"\n")
   cat("Observations compared:",nrow(src_and_tgt),"\n")
   cat("Columns compared:",length(names(src_and_tgt)),"\n")
-  cat("Columns with unequal values:",nrow(printout),"\n")
+  cat("Columns with unequal values:",nrow(printout[,printout[Mismatches>0]]),"\n")
   cat("\n")
   cat("Uncommon column names:\n")
   cat("---------------------------\n")
