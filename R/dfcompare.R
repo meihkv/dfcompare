@@ -64,16 +64,16 @@ dfcompare = function (source, target, keys, summary = TRUE) {
   #                              paste(tgt_name, "not in", src_name, sep=" "))
 
   #Remove duplicate keys from source and target
-  src_no_dupes = source[!(duplicated(data.table::rleidv(source, cols = keys)) |
-                            duplicated(data.table::rleidv(source, cols = keys), fromLast = TRUE)),]
-  src_dupes = source[(duplicated(data.table::rleidv(source, cols = keys)) |
-                         duplicated(data.table::rleidv(source, cols = keys), fromLast = TRUE)),]
-  tgt_no_dupes = target[!(duplicated(data.table::rleidv(target, cols = keys)) |
-                            duplicated(data.table::rleidv(target, cols = keys), fromLast = TRUE)),]
-  tgt_dupes = target[(duplicated(data.table::rleidv(target, cols = keys)) |
-                         duplicated(data.table::rleidv(target, cols = keys), fromLast = TRUE)),]
+  src_no_dupes = source[!(duplicated(source[,..keys]) |
+                            duplicated(source[,..keys], fromLast = TRUE)),]
+  src_dupes = source[(duplicated(source[,..keys]) |
+                         duplicated(source[,..keys], fromLast = TRUE)),]
+  tgt_no_dupes = target[!(duplicated(target[,..keys]) |
+                            duplicated(target[,..keys], fromLast = TRUE)),]
+  tgt_dupes = target[(duplicated(target[,..keys]) |
+                         duplicated(target[,..keys], fromLast = TRUE)),]
 
-  #Merge deduplicated source and target on keys to compare values
+  #Merge non-duplicated source and target on keys to compare values
   src_and_tgt = src_no_dupes[tgt_no_dupes, on = keys, nomatch = 0]
 
   #Checks each column pairs between source and target for equal values
