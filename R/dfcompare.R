@@ -101,7 +101,7 @@ dfcompare = function (source, target, keys, summary = TRUE) {
     cat("Duplicate keys removed from",src_name,":",nrow(src_dupes),"\n")
     cat("Duplicate keys removed from",tgt_name,":",nrow(tgt_dupes),"\n")
     cat("Observations compared:",nrow(src_and_tgt),"\n")
-    cat("Columns compared:",length(names(src_and_tgt)),"\n")
+    cat("Columns compared:",length(common),"\n")
     cat("Columns with unequal values:",nrow(printout[,printout[Mismatches>0]]),"\n")
     cat("\n")
     cat("Uncommon column names:\n")
