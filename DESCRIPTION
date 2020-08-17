@@ -5,7 +5,7 @@ Version: 0.2.0
 Author: Michael Vuong
 Description: Compares two data frames using data.table methods.
     Checks for mismatching values, columns, and datatypes.
-License: Common
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: data.table (>= 1.9.4)
