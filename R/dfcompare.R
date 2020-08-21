@@ -76,6 +76,12 @@ dfcompare = function (source, target, keys, summary = TRUE) {
   #Merge non-duplicated source and target on keys to compare values
   src_and_tgt = src_no_dupes[tgt_no_dupes, on = keys, nomatch = 0]
 
+  #Get source observations that was not matched
+  src_not_tgt = src_no_dupes[,..keys][!src_and_tgt[,..keys], on =keys]
+
+  #Get target observations that was not matched
+  tgt_not_src = tgt_no_dupes[,..keys][!src_and_tgt[,..keys], on =keys]
+
   #Checks each column pairs between source and target for equal values
   list = lapply(common_nokey, datatable = src_and_tgt, keys = keys, dt_names = c(src_name, tgt_name), check_equality)
   names(list) = common_nokey
@@ -100,6 +106,8 @@ dfcompare = function (source, target, keys, summary = TRUE) {
     cat("Observations in",tgt_name,": ",nrow(target),"\n")
     cat("Duplicate keys removed from",src_name,":",nrow(src_dupes),"\n")
     cat("Duplicate keys removed from",tgt_name,":",nrow(tgt_dupes),"\n")
+    cat("Keys in", src_name, "not in", tgt_name,":", nrow(src_not_tgt),"\n")
+    cat("Keys in", tgt_name, "not in", src_name,":", nrow(tgt_not_src),"\n")
     cat("Observations compared:",nrow(src_and_tgt),"\n")
     cat("Columns compared:",length(common_nokey),"\n")
     cat("Columns with unequal values:",nrow(printout[,printout[Mismatches>0]]),"\n")
@@ -136,6 +144,9 @@ dfcompare = function (source, target, keys, summary = TRUE) {
     cat("\n")
     cat("\n")
   }
+
+  list[[paste(src_name, " not in ", tgt_name)]] = src_not_tgt
+  list[[paste(tgt_name, " not in ", src_name)]] = tgt_not_src
 
   return(list)
 }
