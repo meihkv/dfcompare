@@ -15,7 +15,7 @@ target = data.frame(sapply(longley, function(x) x*replicate(n = nrow(longley), r
 test_that("returns names", {
   result = dfcompare(longley, target, 'Year', summary = FALSE)
   expect_equal(length(result),
-              6)
+              8)
   expect_true(all.equal(result,result))
 })
 
