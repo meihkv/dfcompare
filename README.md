@@ -20,6 +20,7 @@ random = function(){
 }
 
 target = data.frame(sapply(longley, function(x) x*replicate(n = nrow(longley), random())))
+
 dfcompare(longley, target, 'Year', summary = FALSE)
 
 
